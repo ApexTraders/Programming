@@ -1,0 +1,25 @@
+repeat (abs(velocity[@ X]))
+{
+	if (!place_meeting(x + sign(velocity[@ X]), y, obj_wall2))
+	{
+		x += sign(velocity[@ X]);
+	}
+	else
+	{
+		velocity[@ X] = 0;
+		break;
+	}
+}
+
+repeat (abs(velocity[@ Y]))
+{
+	if (!place_meeting(x, y + sign(velocity[@ Y]), obj_wall2))
+	{
+		y += sign(velocity[@ Y]);
+	}
+	else
+	{
+		velocity[@ Y] = 0;
+		break;
+	}
+}
