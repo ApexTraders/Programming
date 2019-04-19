@@ -1,0 +1,79 @@
+right = keyboard_check(ord("D"));
+left = keyboard_check(ord("A"));
+up = keyboard_check(ord("W"));
+down = keyboard_check(ord("S"));
+
+//--movement
+var dirX, dirY, dir;
+
+dirX = 0;
+dirY = 0;
+if (playerhealth >= 1)
+{
+if (right || left)
+{
+	dirX = right-left;	
+}
+
+if (up || down)
+{
+	dirY = down-up;
+}
+
+dir = point_direction(0, 0, dirX, dirY);
+
+var currentspeed = point_distance(0, 0, velocity[@ X], velocity[@ Y]);
+
+
+//horizontal
+if (right || left)
+{
+	if (abs(currentspeed) >= spd)
+	{
+		velocity[@ X] = lengthdir_x(spd, dir);
+	}
+	else
+	{
+		velocity[@ X] += lengthdir_x(acc, dir);
+	}
+}
+else
+{
+	velocity[@ X] = lerp(velocity[@ X], 0, fric);
+}
+//vertical
+if (up || down)
+{
+	if (abs(currentspeed) >= spd)
+	{
+		velocity[@ Y] = lengthdir_y(spd, dir);
+	}
+	else
+	{
+		velocity[@ Y] += lengthdir_y(acc, dir);
+	}
+}
+else
+{
+	velocity[@ Y] = lerp(velocity[@ Y], 0, fric);
+}
+
+}
+//-- change sprite rotation
+
+facing = point_direction(x, y, mouse_x, mouse_y)
+
+//--shooting
+
+if mouse_check_button(mb_left)
+{
+	instance_create_depth(object0.x,object0.y,1,obj_playerbullet);
+}
+
+//-- Health and damage
+
+if (playerhealth <= 0)
+{
+	instance_change(obj_dead, true);
+	exit;
+}
