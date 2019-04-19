@@ -1,0 +1,15 @@
+if (playerhealth >= 1)
+{
+
+if collision_line(x,y,object0.x,object0.y,obj_wall2,1,0)
+{
+	visible = false;
+}
+else
+{
+	visible = true
+}
+
+facing = point_direction(x, y, object0.x, object0.y);
+
+}
