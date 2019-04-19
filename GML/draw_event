@@ -1,0 +1,14 @@
+draw_sprite_ext(sprite_index, image_index, x, y, image_xscale, image_yscale, facing, c_white, image_alpha);
+
+draw_text(10, 10, string(velocity[@X]));
+draw_text(10, 30, string(velocity[@Y]));
+
+draw_text(10, 50, string(playerhealth));
+
+draw_text(10, 90, "FPS = " + string(fps));
+
+draw_rectangle(520,1040, 100,200, true);
+
+draw_circle(520, 100, 50, true);
+
+draw_ellipse(600, 1200, 100, 200, true);
