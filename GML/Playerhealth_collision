@@ -1,0 +1,9 @@
+if (playerhealth >= 1)
+{
+	if not collision_line(x,y,object0.x,object0.y,obj_wall2,1,0)
+{
+	instance_create_depth(obj_enemy.x,obj_enemy.y,1,object7);
+}
+
+alarm_set(0,25);
+}
