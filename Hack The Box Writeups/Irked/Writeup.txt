@@ -1,0 +1,28 @@
+User
+
+For irked we have quite a few avenues to go down on first arrival. 
+upon first inspection of this box we only have a photo and text saying "IRC is almost Working!"
+Initially I go to stego and download the photo to see what I can find but using the command 
+"steghide extract -sf irked.jpg -xf message.txt"
+we will see that the image needs a passphrase to decode the information in the photo so there must be another way in.
+For this box a nmap scan of all of the ports is neccessary and with that we will find open ports for Unreal3.2 IRC
+with a quick google search we find a well known CVE and gets us a low priv shell very easilly.
+Now that we are in the box with a shell we gotta look around a little bit for information.
+Always use the command "ls -la" and not just "ls" because the -la means "list all" which will show hidden files when "ls" will not.
+searching around we find the backup stego password which we can use to crack that photo we found earlier.
+The message inside of the file is a DES hash which i assumed to be a password to something.
+I looked back at the open ports and port 22 was open for SSH.
+so I tried to login to SSH with the stego password and it worked, Now we have the user.
+
+Time for piv esc on Irked.
+
+The first thing I do on a box when going for root is run an enumeration script to see everything that is running
+upon doing this we find the binary which looks a little suspect of what we need since we need to change our user to the root user.
+so i downloaded this file with python and used "strace" and "lstrace" to find out exactly what the binary is doing.
+with further inspection of the binary we find that the binary is looking for a bash file called "listusers" under the /tmp/ directory,
+This binary will run whatever is in the file as the root user.
+with this formation things became very easy, all that there is to do now is break it.
+to do that we just need to put "su root" in our bash script since it is running as root and it will change our user to root.
+
+
+we have rooted the box.
