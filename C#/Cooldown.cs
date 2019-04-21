@@ -1,6 +1,6 @@
 using System;
+using System.Reflection;
 using RoR2;
-using Harmony;
 using BepInEx;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -12,25 +12,15 @@ namespace Cooldown
     [BepInPlugin("com.zalol.Cooldown", "CooldownMod", "1.0.0")]
     public class Cooldown : BaseUnityPlugin
     {
-        void Main()
+        public void Awake()
         {
-            Chat.AddMessage("CooldownMod has Loaded");
-            HarmonyInstance.DEBUG = true;
-            var harmony = HarmonyInstance.Create("com.zal.ror2.Cooldown");
-            var _Cooldown = new HarmonyMethod(AccessTools.Method(typeof(Cooldown), nameof(Nocooldown)));
-
-            harmony.Patch(
-                AccessTools.Method(typeof(GenericSkill), "FixedUpdate"),
-
-                prefix: _Cooldown
-                );
-            Chat.AddMessage("hooked");
-        }
-
-        void Nocooldown(GenericSkill __instance)
-        {
-            Chat.AddMessage("We loaded");
-            __instance.Reset();
+            Chat.AddMessage("CooldownFucker Loaded");
+             On.RoR2.GenericSkill.FixedUpdate += (orig, self) =>
+            {
+                self.Reset();
+                //typeof(GenericSkill).GetField("rechargeStopwatch", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(self, 15);
+                orig(self);
+            };
         }
     }
 }
